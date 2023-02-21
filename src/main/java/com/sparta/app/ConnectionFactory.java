@@ -1,2 +1,5 @@
-package com.sparta.app;public class ConnectionFactory {
+package com.sparta.app;
+
+public class ConnectionFactory {
+
 }
