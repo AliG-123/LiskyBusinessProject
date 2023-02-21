@@ -1,2 +1,4 @@
-package com.sparta.entities;public class Employee {
+package com.sparta.entities;
+public class Employee {
+
 }
