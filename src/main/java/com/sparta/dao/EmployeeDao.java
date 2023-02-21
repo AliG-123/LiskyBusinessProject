@@ -1,2 +1,5 @@
-package com.sparta.dao;public class EmployeeDao {
+package com.sparta.dao;
+
+public class EmployeeDao {
+
 }
