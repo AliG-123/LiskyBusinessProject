@@ -40,14 +40,14 @@ public class EmployeeDao implements DAO {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
            if (resultSet.next()){
-//               employeeFoundById = new Employee(
-//                       resultSet.getInt(1),
-//                       resultSet.getDate(2),
-//                       resultSet.getString(3),
-//                       resultSet.getString(4),
-//                       resultSet.getString(5),
-//                       resultSet.getDate(6));
-               System.out.println(resultSet.getInt(1) + " " + resultSet.getString(3));
+               employeeFoundById = new Employee(
+                       resultSet.getDate(2),
+                       resultSet.getInt(1),
+                       resultSet.getString(3),
+                       resultSet.getString(4),
+                       resultSet.getDate(6),
+                       resultSet.getString(5));
+//               System.out.println(resultSet.getInt(1) + " " + resultSet.getString(3));
            }
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
@@ -73,14 +73,14 @@ public class EmployeeDao implements DAO {
             preparedStatement = connection.prepareStatement("SELECT * FROM employees");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-//                employeesList.add(new Employee(
-//                        resultSet.getInt(1),
-//                        resultSet.getDate(2),
-//                        resultSet.getString(3),
-//                        resultSet.getString(4),
-//                        resultSet.getString(5),
-//                        resultSet.getDate(6)));
-                System.out.println(resultSet.getString(3));
+                employeesList.add(new Employee(
+                        resultSet.getDate(2),
+                        resultSet.getInt(1),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getDate(6),
+                        resultSet.getString(5)));
+//                System.out.println(resultSet.getString(3));
             }
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
