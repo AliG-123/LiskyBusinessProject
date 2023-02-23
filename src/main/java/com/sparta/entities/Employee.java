@@ -1,5 +1,6 @@
 package com.sparta.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +13,7 @@ public class Employee {
     private String gender;
     private Date hire_date;
     private String last_name;
-    private List<Department> departmentList;
+    private List<Department> departmentList = new ArrayList<>();
 
 
     public Employee() {
@@ -30,6 +31,17 @@ public class Employee {
         this.last_name = last_name;
         this.departmentList = departmentList;
     }
+    public Employee(Date birth_date, int emp_no, String first_name, String gender, Date hire_date, String last_name, Department department) {
+        this.birth_date = birth_date;
+        this.emp_no = emp_no;
+        this.first_name = first_name;
+        this.gender = gender;
+        this.hire_date = hire_date;
+        this.last_name = last_name;
+        this.departmentList.add(department);
+    }
+
+
 
     public Date getBirth_date() {
         return birth_date;
