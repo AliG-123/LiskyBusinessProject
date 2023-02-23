@@ -1,6 +1,7 @@
 package com.sparta.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Employee {
@@ -11,18 +12,23 @@ public class Employee {
     private String gender;
     private Date hire_date;
     private String last_name;
+    private List<Department> departmentList;
+
 
     public Employee() {
         super();
     }
 
-    public Employee(Date birth_date, int emp_no, String first_name, String gender, Date hire_date, String last_name) {
+
+
+    public Employee(Date birth_date, int emp_no, String first_name, String gender, Date hire_date, String last_name, List<Department> departmentList) {
         this.birth_date = birth_date;
         this.emp_no = emp_no;
         this.first_name = first_name;
         this.gender = gender;
         this.hire_date = hire_date;
         this.last_name = last_name;
+        this.departmentList = departmentList;
     }
 
     public Date getBirth_date() {
@@ -71,6 +77,14 @@ public class Employee {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
     }
 
     @Override
