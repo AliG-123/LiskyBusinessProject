@@ -65,7 +65,7 @@ class EmployeeTest {
         public void setEmployeeEmpId_GetReturnsSameEmpId() {
             Employee employee = new Employee();
             employee.setEmp_no(1234);
-            assertEquals("1234", employee.getEmp_no());
+            assertEquals(1234, employee.getEmp_no());
         }
 
         @ParameterizedTest

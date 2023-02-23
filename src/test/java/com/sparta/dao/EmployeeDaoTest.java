@@ -43,13 +43,10 @@ class EmployeeDaoTest {
     @Test
     public void testFindAll() {
         EmployeeDao employeeDao = new EmployeeDao();
-        List<Employee> expected = new ArrayList<>();
-        expected.add(new Employee(new Date(), 1, "John", "Doe", new Date(), "M"));
-        expected.add(new Employee(new Date(), 2, "Jane", "Doe", new Date(), "F"));
-        expected.add(new Employee(new Date(), 300024, "Bob", "Smith", new Date(), "M"));
         List<Employee> actual = employeeDao.findAll();
-        assertEquals(expected.size(), actual.size());
-        assertTrue(actual.containsAll(expected));
+        employeeDao.insert(new Employee(new Date(12, 12, 22), 300024, "Bob", "M", new Date(), "Smith"));
+        List<Employee> expected = employeeDao.findAll();
+        assertEquals(expected.size(), actual.size() + 1);
     }
 
     @Test

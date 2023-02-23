@@ -37,13 +37,6 @@ class ConnectionFactoryTest {
     }
 
 
-    @Test
-    @AfterAll
-    @DisplayName("Given the connection is closed return true if connection closes")
-    public void CallingGetConnection_ReturnTrueIfConnectionCloses() throws SQLException {
-        ConnectionFactory.closeConnection();
-        assertTrue(connection.isClosed());
-    }
 
     @Test
     @DisplayName("Check database name and return database name")
@@ -74,6 +67,14 @@ class ConnectionFactoryTest {
     @DisplayName("Given no connection return connection when getConnection method is called")
 public void CallingGetConnection_ReturnConnection() throws SQLException, IOException {
         assertEquals(connection, ConnectionFactory.getConnection());
+    }
+    @Test
+//    @AfterAll
+    @DisplayName("Given the connection is closed return true if connection closes")
+    public void CallingGetConnection_ReturnTrueIfConnectionCloses() throws SQLException {
+        ConnectionFactory.closeConnection();
+        assertTrue(connection.isClosed());
+        connection = getConnection();
     }
 
 }

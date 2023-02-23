@@ -5,10 +5,7 @@ import com.sparta.entities.Employee;
 import com.sparta.interfaces.DAO;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +65,43 @@ public class EmployeeDao implements DAO {
 
     @Override
     public int insert(Object newRow) {
-        return 0;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        Employee employee = (Employee) newRow;
+
+        int answer = 0;
+
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement(
+                    "INSERT INTO employees (first_name, last_name, hire_date, birth_date, emp_no, gender) VALUES (?, ?, ?, ?, ?, ?)"
+            );
+            //"UPDATE employees SET first_name = ?, last_name = ?, hire_date = ?, birth_date = ?, gender = ? WHERE emp_no = ?"
+            preparedStatement.setString(1, employee.getFirst_name());
+            preparedStatement.setString(2, employee.getLast_name());
+            preparedStatement.setDate(3, new java.sql.Date(employee.getHire_date().getTime()));
+            preparedStatement.setDate(4, new java.sql.Date(employee.getBirth_date().getTime()));
+            preparedStatement.setInt(5, employee.getEmp_no());
+            preparedStatement.setString(6, employee.getGender());
+            preparedStatement.execute();
+
+            Statement statement = connection.createStatement();
+            rs = statement.executeQuery("SELECT LAST_INSERT_ID()");
+
+            rs.next();
+            answer = rs.getInt(1);
+
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                ConnectionFactory.closeConnection();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return answer;
     }
 
   /*  @Override
