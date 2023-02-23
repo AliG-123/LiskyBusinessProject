@@ -16,11 +16,53 @@ public class EmployeeDao implements DAO {
 
     @Override
     public void deleteById(int id) {
-
+        PreparedStatement preparedStatement = null;
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE * FROM employees.employees WHERE employees.emp_no = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                ConnectionFactory.closeConnection();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
     public void updated(Object update) {
+
+        PreparedStatement preparedStatement = null;
+        Employee employee = (Employee) update;
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE employees SET first_name = ?, last_name = ?, hire_date = ?, birth_date = ?, gender = ? WHERE emp_no = ?");
+            preparedStatement.setString(1, employee.getFirst_name());
+            preparedStatement.setString(2, employee.getLast_name());
+            preparedStatement.setDate(3, new java.sql.Date(employee.getHire_date().getTime()));
+            preparedStatement.setDate(4, new java.sql.Date(employee.getBirth_date().getTime()));
+            preparedStatement.setString(5, employee.getGender());
+            preparedStatement.setInt(6, employee.getEmp_no());
+            preparedStatement.executeUpdate();
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                ConnectionFactory.closeConnection();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 
@@ -29,8 +71,8 @@ public class EmployeeDao implements DAO {
         return 0;
     }
 
-    @Override
-    public Object findByID(int id) {
+  /*  @Override
+    public Employee findByID(int id) {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Employee employeeFoundById = null;
@@ -61,7 +103,46 @@ public class EmployeeDao implements DAO {
 
 
         return employeeFoundById;
+    } */
+
+    @Override
+    public Employee findByID(int id) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Employee employeeFoundById = null;
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM employees.employees WHERE employees.emp_no = ?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                employeeFoundById = new Employee(
+                        resultSet.getDate(2),
+                        resultSet.getInt(1),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getDate(6),
+                        resultSet.getString(5));
+//               System.out.println(resultSet.getInt(1) + " " + resultSet.getString(3));
+            }
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException("Error while closing resources", e);
+            }
+        }
+        return employeeFoundById;
     }
+
 
     @Override
     public List findAll() {
@@ -90,9 +171,10 @@ public class EmployeeDao implements DAO {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            ;
+
         }
 
         return employeesList;
     }
 }
+
