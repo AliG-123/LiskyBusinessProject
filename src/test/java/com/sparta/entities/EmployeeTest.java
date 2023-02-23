@@ -22,8 +22,8 @@ class EmployeeTest {
         @DisplayName("Testing set and get first name")
         public void setEmployeeFirstName_GetReturnsSameFirstName() {
             Employee employee = new Employee();
-            employee.setFirstName("Tom");
-            assertEquals("Tom", employee.getFirstName());
+            employee.setFirst_name("Tom");
+            assertEquals("Tom", employee.getFirst_name());
         }
 
         @ParameterizedTest
@@ -31,8 +31,8 @@ class EmployeeTest {
         @DisplayName("Multiple Testing set and get first name")
         public void setLast_ReturnSameName(String value) {
             Employee employee = new Employee();
-            employee.setFirstName(value);
-            assertEquals(value, employee.getFirstName());
+            employee.setFirst_name(value);
+            assertEquals(value, employee.getFirst_name());
         }
     }
 
@@ -42,8 +42,8 @@ class EmployeeTest {
         @DisplayName("Testing set  and get last name")
         public void setEmployeeLastName_GetReturnsSameLastName() {
             Employee employee = new Employee();
-            employee.setLastName("Jones");
-            assertEquals("Jones", employee.getLastName());
+            employee.setLast_name("Jones");
+            assertEquals("Jones", employee.getLast_name());
         }
 
         @ParameterizedTest
@@ -51,8 +51,8 @@ class EmployeeTest {
         @DisplayName("Multiple Testing set and get last name")
         public void setLast_ReturnSameName(String value) {
             Employee employee = new Employee();
-            employee.setLastName(value);
-            assertEquals(value, employee.getLastName());
+            employee.setLast_name(value);
+            assertEquals(value, employee.getLast_name());
         }
 
     }
@@ -64,17 +64,17 @@ class EmployeeTest {
         @DisplayName("Testing set and get emp id")
         public void setEmployeeEmpId_GetReturnsSameEmpId() {
             Employee employee = new Employee();
-            employee.setEmpId("1234");
-            assertEquals("1234", employee.getEmpId());
+            employee.setEmp_no(1234);
+            assertEquals("1234", employee.getEmp_no());
         }
 
         @ParameterizedTest
         @CsvSource({"1322", "2315", "2356", "9421", "8976"})
         @DisplayName("Multiple Testing set and get last name")
-        public void setLast_ReturnSameName(String value) {
+        public void setLast_ReturnSameName(int value) {
             Employee employee = new Employee();
-            employee.setEmpId(value);
-            assertEquals(value, employee.getEmpId());
+            employee.setEmp_no(value);
+            assertEquals(value, employee.getEmp_no());
         }
 
     }
@@ -87,17 +87,17 @@ class EmployeeTest {
         @DisplayName("Testing set and get gender")
         public void setEmployeeGender_GetReturnsSameGender() {
             Employee employee = new Employee();
-            employee.setGender('M');
-            assertEquals('M', employee.getGender());
+            employee.setGender("M");
+            assertEquals("M", employee.getGender());
         }
 
         @ParameterizedTest
-        @ValueSource(chars = {'M', 'F'})
+        @ValueSource(strings = {"M", "F"})
         @DisplayName("Multiple Testing set and get gender")
-        public void setLast_ReturnSameName(char value) {
+        public void setLast_ReturnSameName(String value) {
             Employee employee = new Employee();
-            employee.setEmpId(value);
-            assertEquals(value, employee.getEmpId());
+            employee.setGender(value);
+            assertEquals(value, employee.getGender());
         }
     }
 
@@ -108,8 +108,8 @@ class EmployeeTest {
         @DisplayName("Testing set and get hire date")
         public void setEmployeeHireDate_GetReturnsSameHireDate() {
             Employee employee = new Employee();
-            employee.setDate(new Date());
-            assertEquals(new Date(), employee.getDate());
+            employee.setHire_date(new Date());
+            assertEquals(new Date(), employee.getHire_date());
         }
 
     }
