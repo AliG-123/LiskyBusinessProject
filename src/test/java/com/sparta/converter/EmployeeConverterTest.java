@@ -1,8 +1,13 @@
 package com.sparta.converter;
 
+import com.sparta.app.ConnectionFactory;
+import com.sparta.entities.Employee;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,8 +19,12 @@ class EmployeeConverterTest {
 
         @Test
         @DisplayName("tests employee gets set to json format")
-        public void givenEmployee_ReturnDetailsInJsonFormat() {
-
+        public void givenEmployee_ReturnDetailsInJsonFormat() throws FileNotFoundException {
+            ConverterFactory cFactory = new JsonConverterFactory();
+            Converter converter = cFactory.getConverter();
+            Employee employee = new Employee();
+            converter.objectToFile("src/main/resources/employees.json", employee);
+            assertEquals("", new FileReader("src/main/resources/employees.json"));
         }
 
         @Test
