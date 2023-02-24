@@ -6,13 +6,27 @@ import com.sparta.converter.JsonConverterFactory;
 import com.sparta.converter.XmlConverterFactory;
 import com.sparta.entities.Employee;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+// Everything runs upon Creator.Create() call.
 public class Creator {
 
     public static void Create() {
-        getConvertFactory(Ask());
+        // This returns the needed Converter (xml or Json)
+        Converter converter = getConvertFactory(Ask());
+
+        // Ask the user for a filename
+        String filename = askFileName();
+
+        try {
+            // Now we call the ObjectToFileMethod on the converter,
+            // passing also the filename.
+            converter.objectToFile(new Employee(), filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static String Ask() {
@@ -22,8 +36,13 @@ public class Creator {
         return fileType;
     }
 
-    public static Converter getConvertFactory(String fileType) {
+    public static String askFileName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a file name: ");
+        return scanner.nextLine();
+    }
 
+    public static Converter getConvertFactory(String fileType) {
         ConverterFactory cFactory = null;
         switch (fileType) {
             case "json":

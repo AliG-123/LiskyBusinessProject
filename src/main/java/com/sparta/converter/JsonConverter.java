@@ -10,8 +10,8 @@ public class JsonConverter implements Converter {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public void objectToFile(Object o) throws IOException {       // Converts object to Json (serialization)
-        mapper.writeValue(new File("src/main/resources/JsonObject.json"), o);
+    public void objectToFile(Object o, String filename) throws IOException {       // Converts object to Json (serialization)
+        mapper.writeValue(new File("src/main/resources/" + filename + ".json"), o);
     }
 
     @Override
