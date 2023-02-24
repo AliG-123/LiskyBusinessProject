@@ -34,7 +34,6 @@ public class Creator {
                 break;
             default:
                 System.out.println("Invalid file type entered.");
-                //Ask();
                 return getConvertFactory(Ask());
         }
         return cFactory.getConverter();
