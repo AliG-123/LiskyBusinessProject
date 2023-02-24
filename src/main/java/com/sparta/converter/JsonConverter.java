@@ -1,13 +1,21 @@
 package com.sparta.converter;
 
-public class JsonConverter implements Converter{
-    @Override
-    public void objectToFile(String path, Object o) {
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
+import java.io.IOException;
+
+public class JsonConverter implements Converter {
+
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    @Override
+    public void objectToFile(Object o, String filename) throws IOException {       // Converts object to Json (serialization)
+        mapper.writeValue(new File("src/main/resources/" + filename + ".json"), o);
     }
 
     @Override
     public Object fileToObject(String path) {
         return null;
-    }
+    }   // Converts Json to Object
 }

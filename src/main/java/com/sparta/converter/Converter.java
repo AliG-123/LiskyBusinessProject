@@ -1,7 +1,8 @@
 package com.sparta.converter;
 
-public interface Converter {
-    void objectToFile(String path, Object o);
-    Object fileToObject(String path);
+import java.io.IOException;
 
+public interface Converter {
+    void objectToFile(Object o, String filename) throws IOException;
+    Object fileToObject(String path);
 }

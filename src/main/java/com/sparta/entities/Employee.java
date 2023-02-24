@@ -1,5 +1,9 @@
 package com.sparta.entities;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,10 +11,12 @@ import java.util.Objects;
 
 public class Employee {
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birth_date;
     private int emp_no;
     private String first_name;
     private String gender;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date hire_date;
     private String last_name;
     private List<Department> departmentList = new ArrayList<>();
@@ -39,6 +45,9 @@ public class Employee {
         this.hire_date = hire_date;
         this.last_name = last_name;
         this.departmentList.add(department);
+    }
+
+    public Employee(java.sql.Date date, int anInt, String string, String string1, java.sql.Date date1, String string2) {
     }
 
 

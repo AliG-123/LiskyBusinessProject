@@ -1,5 +1,7 @@
 package com.sparta.dao;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.sparta.app.ConnectionFactory;
 import com.sparta.entities.Department;
 import com.sparta.entities.Employee;
@@ -9,6 +11,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class EmployeeDao implements DAO {
 
@@ -163,6 +166,7 @@ public class EmployeeDao implements DAO {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
+
             while (resultSet.next()) {
                 if (employeeFoundById == null) {
                     employeeFoundById = new Employee(
@@ -227,6 +231,7 @@ public class EmployeeDao implements DAO {
                         resultSet.getDate(7),
                         resultSet.getString(6),
                         new Department(resultSet.getString(2), resultSet.getString(8)));
+
                 if (!employeesList.contains(employeeToAdd)) {
                     employeesList.add(employeeToAdd);
                 } else {
@@ -289,6 +294,30 @@ public class EmployeeDao implements DAO {
         return employeesList;
     }
 
+
+    public static void convertToJacksonFormat(List<Employee> employeeList, Scanner scanner) {
+        System.out.print("Enter desired file type (json/xml): ");
+        String fileType = scanner.nextLine().toLowerCase();
+
+        switch (fileType) {
+            case "json":
+                convertToJson(employeeList);
+                break;
+            case "xml":
+                convertToXml(employeeList);
+                break;
+            default:
+                System.out.println("Invalid file type entered.");
+        }
+    }
+    private static void convertToJson(List<Employee> employeeList) {
+        // implementation for converting to JSON
+    }
+    private static void convertToXml(List<Employee> employeeList) {
+        // implementation for converting to XML
+    }
+
+}
     public List findEmployeesByDeptAndDate(String dept, String fromDate, String toDate) {
         List<Employee> listOfEmployees = new ArrayList<>();
 
@@ -365,5 +394,4 @@ public class EmployeeDao implements DAO {
 
 
     }
-
 }
