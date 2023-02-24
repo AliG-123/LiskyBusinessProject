@@ -49,6 +49,16 @@ class EmployeeDaoTest {
         assertEquals(expected.size(), actual.size() + 1);
     }
 
+    @ParameterizedTest
+    @CsvSource({"10001, 2"})
+    public void testFindAll(int expectedId, int expectedSize) {
+        EmployeeDao employeeDao = new EmployeeDao();
+        List<Employee> actual = employeeDao.findAll();
+        assertEquals(expectedSize, actual.size());
+        assertTrue(actual.stream().anyMatch(e -> e.getEmp_no() == expectedId));
+    }
+
+
     @Test
     public void testUpdateEmployee() {
         // Create a new Employee object
@@ -80,4 +90,10 @@ class EmployeeDaoTest {
         }
     }
 
+
+
+
 }
+
+
+

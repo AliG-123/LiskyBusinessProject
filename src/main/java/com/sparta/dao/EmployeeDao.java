@@ -197,7 +197,7 @@ public class EmployeeDao implements DAO {
     }
 
 
-    @Override
+   /* @Override
     public List findAll() {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -245,6 +245,45 @@ public class EmployeeDao implements DAO {
                 throw new RuntimeException(e);
             }
 
+        }
+
+        return employeesList;
+    } */
+
+
+    @Override
+    public List findAll() {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Employee> employeesList = new ArrayList<>();
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM employees");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                employeesList.add(new Employee(
+                        resultSet.getDate(2),
+                        resultSet.getInt(1),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getDate(6),
+                        resultSet.getString(5)));
+//                System.out.println(resultSet.getString(3));
+            }
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException("Error while closing resources", e);
+            }
         }
 
         return employeesList;
@@ -326,6 +365,5 @@ public class EmployeeDao implements DAO {
 
 
     }
+
 }
-
-
