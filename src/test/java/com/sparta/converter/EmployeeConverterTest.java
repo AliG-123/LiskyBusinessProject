@@ -18,38 +18,25 @@ class EmployeeConverterTest {
     class TestingFormatting {
 
         @Test
-        @DisplayName("tests employee gets set to json format")
-        public void givenEmployee_ReturnDetailsInJsonFormat() throws FileNotFoundException {
+        @DisplayName("tests employee gets sent to json file")
+        public void givenEmployee_WriteDataToJsonFile() throws FileNotFoundException {
             ConverterFactory cFactory = new JsonConverterFactory();
             Converter converter = cFactory.getConverter();
             Employee employee = new Employee();
             converter.objectToFile("src/main/resources/employees.json", employee);
-            assertEquals("", new FileReader("src/main/resources/employees.json"));
+            assertEquals("", new FileReader("src/main/resources/employees.json").toString());
         }
 
         @Test
         @DisplayName("tests employee gets set to xml format")
-        public void givenEmployee_ReturnDetailsInXMLFormat() {
-
+        public void givenEmployee_WriteDataToXMLFile() throws FileNotFoundException {
+            ConverterFactory cFactory = new XmlConverterFactory();
+            Converter converter = cFactory.getConverter();
+            Employee employee = new Employee();
+            converter.objectToFile("src/main/resources/employees.xml", employee);
+            assertEquals("", new FileReader("src/main/resources/employees.xml").toString());
         }
 
-    }
-
-    @Nested
-    @DisplayName("tests writing to file")
-    class TestingWriting {
-
-        @Test
-        @DisplayName("tests employee gets written to json file")
-        public void givenEmployee_DetailsAreWrittenToJsonFile() {
-
-        }
-
-        @Test
-        @DisplayName("tests employee gets written to XML file")
-        public void givenEmployee_DetailsAreWrittenToXmlFile() {
-
-        }
     }
 
 }
