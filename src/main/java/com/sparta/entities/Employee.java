@@ -41,6 +41,8 @@ public class Employee {
         this.departmentList.add(department);
     }
 
+    public Employee(java.sql.Date date, int anInt, String string, String string1, java.sql.Date date1, String string2) {
+    }
 
 
     public Date getBirth_date() {
