@@ -13,13 +13,28 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeDepartmentTest {
 
     @Test
+    @DisplayName("Testing department and get department")
+    public void setDepartment_GetReturnsDepartment() {
+        EmployeeDepartment employeeDepartment = new EmployeeDepartment();
+        Department department = new Department();
+        employeeDepartment.setDepartment(department);
+        assertEquals(department, employeeDepartment.getDepartment());
+    }
+
+    @Test
     @DisplayName("Testing set and get from date")
     public void setFromDate_GetReturnsSameFromDate() {
         EmployeeDepartment employeeDepartment = new EmployeeDepartment();
         employeeDepartment.setFrom_Date(new Date());
         assertEquals(new Date(), employeeDepartment.getFrom_Date());
     }
-
+    @Test
+    @DisplayName("Testing set and get to date")
+    public void setToDate_GetReturnsSameToDate() {
+        EmployeeDepartment employeeDepartment = new EmployeeDepartment();
+        employeeDepartment.setTo_Date(new Date());
+        assertEquals(new Date(), employeeDepartment.getTo_Date());
+    }
 //    @ParameterizedTest
 //    @ValueSource(strings = {new Date(2001,1,1) })
 //    @DisplayName("Testing multiple set and get hire dates")
@@ -28,17 +43,4 @@ class EmployeeDepartmentTest {
 //        employeeDepartment.setFrom_Date(new Date());
 //        assertEquals(new Date(), employeeDepartment.getFrom_Date());
 //    }
-
-
-
-
-    @Test
-    @DisplayName("Testing set and get to date")
-    public void setToDate_GetReturnsSameToDate() {
-        EmployeeDepartment employeeDepartment = new EmployeeDepartment();
-        employeeDepartment.setTo_Date(new Date());
-        assertEquals(new Date(), employeeDepartment.getTo_Date());
-    }
-
-
 }
