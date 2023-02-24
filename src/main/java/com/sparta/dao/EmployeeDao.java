@@ -317,7 +317,6 @@ public class EmployeeDao implements DAO {
         // implementation for converting to XML
     }
 
-}
     public List findEmployeesByDeptAndDate(String dept, String fromDate, String toDate) {
         List<Employee> listOfEmployees = new ArrayList<>();
 
