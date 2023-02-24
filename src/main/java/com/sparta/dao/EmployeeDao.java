@@ -163,8 +163,8 @@ public class EmployeeDao implements DAO {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()){
-                if (employeeFoundById ==  null){
+            while (resultSet.next()) {
+                if (employeeFoundById == null) {
                     employeeFoundById = new Employee(
                             resultSet.getDate(3),
                             resultSet.getInt(1),
@@ -174,7 +174,7 @@ public class EmployeeDao implements DAO {
                             resultSet.getString(6),
                             new Department(resultSet.getString(2), resultSet.getString(8)));
 //               System.out.println(resultSet.getInt(1) + " " + resultSet.getString(3));
-                } else{
+                } else {
                     employeeFoundById.getDepartmentList().add(new Department(resultSet.getString(2), resultSet.getString(8)));
                 }
             }
@@ -218,7 +218,7 @@ public class EmployeeDao implements DAO {
                     "where Employees.employees.emp_no = Employees.dept_emp.emp_no\n" +
                     "and Employees.departments.dept_no = Employees.dept_emp.dept_no");
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Employee employeeToAdd = new Employee(
                         resultSet.getDate(3),
                         resultSet.getInt(1),
@@ -227,9 +227,9 @@ public class EmployeeDao implements DAO {
                         resultSet.getDate(7),
                         resultSet.getString(6),
                         new Department(resultSet.getString(2), resultSet.getString(8)));
-                if (!employeesList.contains(employeeToAdd)){
+                if (!employeesList.contains(employeeToAdd)) {
                     employeesList.add(employeeToAdd);
-                } else{
+                } else {
                     int indexOfEmployee = employeesList.indexOf(employeeToAdd);
                     employeesList.get(indexOfEmployee).getDepartmentList().add(new Department(resultSet.getString(2), resultSet.getString(8)));
                 }
@@ -250,69 +250,78 @@ public class EmployeeDao implements DAO {
         return employeesList;
     }
 
-    public List findEmployeesByDeptAndDate(String dept, String fromDate, String toDate){
+    public List findEmployeesByDeptAndDate(String dept, String fromDate, String toDate) {
         List<Employee> listOfEmployees = new ArrayList<>();
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
-        if(fromDate.matches("\\d{4}-\\d{2}-\\d{2}") && toDate.matches("\\d{4}-\\d{2}-\\d{2}") && dept.matches("^[a-zA-Z ]+$")){
-            try {
-                Connection connection = ConnectionFactory.getConnection();
-                preparedStatement = connection.prepareStatement("Select distinct Employees.employees.emp_no,\n" +
-                        "\tEmployees.departments.dept_no,\n" +
-                        "    Employees.employees.birth_date,\n" +
-                        "\tEmployees.employees.first_name,\n" +
-                        "    Employees.employees.gender,\n" +
-                        "    Employees.employees.last_name,\n" +
-                        "    Employees.employees.hire_date,\n" +
-                        "    Employees.departments.dept_name, \n" +
-                        "    Employees.dept_emp.from_date, \n" +
-                        "    Employees.dept_emp.to_date\n" +
-                        "    from Employees.employees, Employees.dept_emp, Employees.departments\n" +
-                        "where Employees.employees.emp_no = Employees.dept_emp.emp_no\n" +
-                        "and Employees.departments.dept_no = Employees.dept_emp.dept_no\n" +
-                        "and  Employees.dept_emp.from_date >=  ?\n" +
-                        "and Employees.dept_emp.from_date <= ?\n" +
-                        "and Employees.departments.dept_name = ?");
-                preparedStatement.setString(1, fromDate.toString());
-                preparedStatement.setString(2, toDate.toString());
-                preparedStatement.setString(3, dept);
+        if (dept.matches("^[a-zA-Z ]+$")) {
+            if (fromDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                if (toDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                    try {
+                        Connection connection = ConnectionFactory.getConnection();
+                        preparedStatement = connection.prepareStatement("Select distinct Employees.employees.emp_no,\n" +
+                                "\tEmployees.departments.dept_no,\n" +
+                                "    Employees.employees.birth_date,\n" +
+                                "\tEmployees.employees.first_name,\n" +
+                                "    Employees.employees.gender,\n" +
+                                "    Employees.employees.last_name,\n" +
+                                "    Employees.employees.hire_date,\n" +
+                                "    Employees.departments.dept_name, \n" +
+                                "    Employees.dept_emp.from_date, \n" +
+                                "    Employees.dept_emp.to_date\n" +
+                                "    from Employees.employees, Employees.dept_emp, Employees.departments\n" +
+                                "where Employees.employees.emp_no = Employees.dept_emp.emp_no\n" +
+                                "and Employees.departments.dept_no = Employees.dept_emp.dept_no\n" +
+                                "and  Employees.dept_emp.from_date >=  ?\n" +
+                                "and Employees.dept_emp.from_date <= ?\n" +
+                                "and Employees.departments.dept_name = ?");
+                        preparedStatement.setString(1, fromDate.toString());
+                        preparedStatement.setString(2, toDate.toString());
+                        preparedStatement.setString(3, dept);
 
-                resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()){
-                    Employee employeeToAdd = new Employee(
-                            resultSet.getDate(3),
-                            resultSet.getInt(1),
-                            resultSet.getString(4),
-                            resultSet.getString(5),
-                            resultSet.getDate(7),
-                            resultSet.getString(6),
-                            new Department(resultSet.getString(2), resultSet.getString(8)));
-                    if (!listOfEmployees.contains(employeeToAdd)){
-                        listOfEmployees.add(employeeToAdd);
-                    } else{
-                        int indexOfEmployee = listOfEmployees.indexOf(employeeToAdd);
-                        listOfEmployees.get(indexOfEmployee).getDepartmentList().add(new Department(resultSet.getString(2), resultSet.getString(8)));
+                        resultSet = preparedStatement.executeQuery();
+                        while (resultSet.next()) {
+                            Employee employeeToAdd = new Employee(
+                                    resultSet.getDate(3),
+                                    resultSet.getInt(1),
+                                    resultSet.getString(4),
+                                    resultSet.getString(5),
+                                    resultSet.getDate(7),
+                                    resultSet.getString(6),
+                                    new Department(resultSet.getString(2), resultSet.getString(8)));
+                            if (!listOfEmployees.contains(employeeToAdd)) {
+                                listOfEmployees.add(employeeToAdd);
+                            } else {
+                                int indexOfEmployee = listOfEmployees.indexOf(employeeToAdd);
+                                listOfEmployees.get(indexOfEmployee).getDepartmentList().add(new Department(resultSet.getString(2), resultSet.getString(8)));
+                            }
+                        }
+                    } catch (IOException | SQLException e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        try {
+                            ConnectionFactory.closeConnection();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
+                } else {
+                    System.out.println("Please enter to date in the following format: YYYY-MM-DD");
                 }
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
-            } finally {
-                try {
-                    ConnectionFactory.closeConnection();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
+            } else {
+                System.out.println("Please enter from date in the following format: YYYY-MM-DD");
             }
+        } else {
+            System.out.println("Please enter only letters and spaces");
         }
-        else {
-            System.out.println("Please enter correct date format: yyyy-mm-dd");
-        }
-
 
         return listOfEmployees;
+
+
     }
 }
+
 
