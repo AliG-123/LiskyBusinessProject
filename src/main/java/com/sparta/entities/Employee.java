@@ -1,5 +1,6 @@
 package com.sparta.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -48,6 +49,7 @@ public class Employee {
 
     public Employee(java.sql.Date date, int anInt, String string, String string1, java.sql.Date date1, String string2) {
     }
+
 
 
     public Date getBirth_date() {
