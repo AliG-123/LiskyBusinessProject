@@ -274,12 +274,16 @@ public class EmployeeDao implements DAO {
                                 "    from Employees.employees, Employees.dept_emp, Employees.departments\n" +
                                 "where Employees.employees.emp_no = Employees.dept_emp.emp_no\n" +
                                 "and Employees.departments.dept_no = Employees.dept_emp.dept_no\n" +
-                                "and  Employees.dept_emp.from_date >=  ?\n" +
-                                "and Employees.dept_emp.from_date <= ?\n" +
-                                "and Employees.departments.dept_name = ?");
+                                "and ((Employees.dept_emp.from_date < ?\n" +
+                                "and Employees.dept_emp.to_date >= ?)\n" +
+                                "or (Employees.dept_emp.from_date >= ? \n" +
+                                "and Employees.dept_emp.from_date <= ?))\n" +
+                                "and employees.departments.dept_name = ?;");
                         preparedStatement.setString(1, fromDate.toString());
-                        preparedStatement.setString(2, toDate.toString());
-                        preparedStatement.setString(3, dept);
+                        preparedStatement.setString(2, fromDate.toString());
+                        preparedStatement.setString(3, fromDate.toString());
+                        preparedStatement.setString(4, fromDate.toString());
+                        preparedStatement.setString(5, dept);
 
                         resultSet = preparedStatement.executeQuery();
                         while (resultSet.next()) {
