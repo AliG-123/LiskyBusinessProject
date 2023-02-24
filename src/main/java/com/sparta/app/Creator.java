@@ -1,5 +1,9 @@
 package com.sparta.app;
 
+import com.sparta.converter.Converter;
+import com.sparta.converter.ConverterFactory;
+import com.sparta.converter.JsonConverterFactory;
+import com.sparta.converter.XmlConverterFactory;
 import com.sparta.entities.Employee;
 
 import java.util.List;
@@ -8,50 +12,32 @@ import java.util.Scanner;
 public class Creator {
 
     public static void Create() {
-
-
+        getConvertFactory(Ask());
     }
 
-  /*  public static void Ask(List<Employee> employeeList, Scanner scanner) {
-        System.out.print("Enter desired file type (json/xml): ");
-        String fileType = scanner.nextLine().toLowerCase();
-
-        switch (fileType) {
-            case "json":
-                convertToJson(employeeList);
-                break;
-            case "xml":
-                convertToXml(employeeList);
-                break;
-            default:
-                System.out.println("Invalid file type entered.");
-        }
-    } */
-
-
-    public static void Ask() {
+    public static String Ask() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter desired file type (json/xml): ");
         String fileType = scanner.nextLine().toLowerCase();
-
-        Factory(fileType);
-
+        return fileType;
     }
 
-    public static void Factory(String fileType) {
-//    convertToJson(employeeList);
-        //     convertToXml(employeeList);
+    public static Converter getConvertFactory(String fileType) {
+
+        ConverterFactory cFactory = null;
         switch (fileType) {
             case "json":
-            //pass arraylist to json convertor
+                cFactory = new JsonConverterFactory();
                 break;
             case "xml":
-         // pass arraylist to xml convertor
+                cFactory = new XmlConverterFactory();
                 break;
             default:
                 System.out.println("Invalid file type entered.");
-                Ask();
+                //Ask();
+                return getConvertFactory(Ask());
         }
+        return cFactory.getConverter();
     }
-
 }
+

@@ -25,7 +25,6 @@ class EmployeeTest {
             employee.setFirst_name("Tom");
             assertEquals("Tom", employee.getFirst_name());
         }
-
         @ParameterizedTest
         @CsvSource({"John", "Mike", "Thomas", "Genius", "King"})
         @DisplayName("Multiple Testing set and get first name")
@@ -45,7 +44,6 @@ class EmployeeTest {
             employee.setLast_name("Jones");
             assertEquals("Jones", employee.getLast_name());
         }
-
         @ParameterizedTest
         @CsvSource({"Jones", "Johnson", "Smith", "Sunak", "King"})
         @DisplayName("Multiple Testing set and get last name")
@@ -59,7 +57,6 @@ class EmployeeTest {
 
     @Nested
     class testEmpId {
-
         @Test
         @DisplayName("Testing set and get emp id")
         public void setEmployeeEmpId_GetReturnsSameEmpId() {
@@ -67,7 +64,6 @@ class EmployeeTest {
             employee.setEmp_no(1234);
             assertEquals(1234, employee.getEmp_no());
         }
-
         @ParameterizedTest
         @CsvSource({"1322", "2315", "2356", "9421", "8976"})
         @DisplayName("Multiple Testing set and get last name")
@@ -90,7 +86,6 @@ class EmployeeTest {
             employee.setGender("M");
             assertEquals("M", employee.getGender());
         }
-
         @ParameterizedTest
         @ValueSource(strings = {"M", "F"})
         @DisplayName("Multiple Testing set and get gender")
@@ -111,7 +106,6 @@ class EmployeeTest {
             employee.setHire_date(new Date());
             assertEquals(new Date(), employee.getHire_date());
         }
-
     }
 
 }
