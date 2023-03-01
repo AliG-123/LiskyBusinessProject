@@ -1,7 +1,6 @@
 package com.sparta.dao;
 
 import com.sparta.entities.Employee;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -10,11 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static java.util.Date.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeDaoTest {

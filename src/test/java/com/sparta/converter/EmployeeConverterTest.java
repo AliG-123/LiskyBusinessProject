@@ -1,6 +1,5 @@
 package com.sparta.converter;
 
-import com.sparta.app.ConnectionFactory;
 import com.sparta.entities.Employee;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

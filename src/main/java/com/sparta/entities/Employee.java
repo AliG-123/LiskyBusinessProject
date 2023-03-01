@@ -2,18 +2,19 @@ package com.sparta.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee {
 
+    private int emp_no;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birth_date;
-    private int emp_no;
     private String first_name;
     private String gender;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -21,11 +22,9 @@ public class Employee {
     private String last_name;
     private List<Department> departmentList = new ArrayList<>();
 
-
     public Employee() {
         super();
     }
-
 
 
     public Employee(Date birth_date, int emp_no, String first_name, String gender, Date hire_date, String last_name, List<Department> departmentList) {

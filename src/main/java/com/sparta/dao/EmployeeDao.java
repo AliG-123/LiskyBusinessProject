@@ -1,7 +1,5 @@
 package com.sparta.dao;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.sparta.app.ConnectionFactory;
 import com.sparta.entities.Department;
 import com.sparta.entities.Employee;

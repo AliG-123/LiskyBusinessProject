@@ -7,7 +7,6 @@ import com.sparta.converter.XmlConverterFactory;
 import com.sparta.entities.Employee;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 // Everything runs upon Creator.Create() call.

@@ -1,7 +1,7 @@
 package com.sparta.converter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.sparta.entities.Employee;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +15,11 @@ public class XmlConverter implements Converter{
         mapper.writeValue(new File("src/main/resources/" + filename + ".xml"), o);
     }
 
+
     @Override
-    public Object fileToObject(String path) {
-        return null;
+    public Object fileToObject(String pathname) throws IOException {
+        Object employeeFromXml = mapper.readValue(new File(pathname), Object.class);
+        System.out.println( employeeFromXml );
+        return employeeFromXml;
     }
 }
